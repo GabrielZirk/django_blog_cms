@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Usernames's Blog{% endblock %}
+
+
+{% block content %}
+
+<ul>
+{% for post in user_posts %}
+{% include 'blog/includes/post.html' %}
+{% endfor %}
+</ul>
+
+{% endblock %}
