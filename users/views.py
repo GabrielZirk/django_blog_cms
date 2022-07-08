@@ -10,9 +10,13 @@ class RegistrationView(FormView):
     form_class = NewUserForm
     template_name = 'registration/register.html'
     fields = '__all__'
-    success_url = '/'
+    success_url = '/registered'
     
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+class SuccessfullyRegisteredView(View):
+    def get(self, request):
+        return render(request, 'registration/register_success.html')
         

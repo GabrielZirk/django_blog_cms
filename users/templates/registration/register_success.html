@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}You registered successfully{% endblock %}
+
+{% block scripts %}<script src="{% static 'users/scripts/scripts.js' %}"></script>{% endblock %}
+
+
+{% block content %}
+<h1>You registered successfully ...</h1>
+<p>... and will be redirected immediately</p>
+
+<script language="JavaScript" type="text/JavaScript">
+    window.setTimeout(function() {
+        window.location.href = "/";
+    }, 2000);
+</script>
+{% endblock%}
