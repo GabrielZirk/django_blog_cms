@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+<h1>It works</h1>
+{% if login_status %}
+<h2>You are awesome because you are logged in</h2>
+{% else %}
+<h2>Only the cool kids are logged in</h2>
+{% endif %}
+<ul>
+<li><a href="{% url 'login' %}">Login</a></li> 
+<li><a href="{% url 'register' %}">Register</a></li>
+</ul>
+{% endblock %}
