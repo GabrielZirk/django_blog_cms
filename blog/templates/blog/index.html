@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h1>It works</h1>
+    <h1>It works. You can see the latest posts here.</h1>
     {% if login_status %}
         <h2>You are awesome because you are logged in. Your username is: {{ username }}</h2>
         <ul>
@@ -21,4 +21,13 @@
             <a href="{% url 'compose' %}">Write a Post</a>
         </li>
     </ul>
+    <section id="latest-posts">
+        <ul>
+            <h2>Latest Posts</h2>
+            {% for post in latest_posts %}
+                <p>{{ post.title }}</p>
+                {% include 'blog/includes/post.html' %}
+            {% endfor %}
+        </ul>
+    </section>
 {% endblock %}
