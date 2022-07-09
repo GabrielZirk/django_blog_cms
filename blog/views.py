@@ -48,6 +48,7 @@ class UserPostsView(ListView):
     template_name = "blog/user_posts.html"
     
     def get_queryset(self, *args, **kwargs):
+        '''Query the dataset to fetch the posts of a specific user'''
         author = User.objects.get(username=self.kwargs["slug"])
         query = super(UserPostsView, self).get_queryset(*args, **kwargs)
         user_posts = query.filter(author=author).order_by('date')
