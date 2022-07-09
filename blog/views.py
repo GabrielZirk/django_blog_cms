@@ -18,7 +18,7 @@ class IndexView(View):
 
     def get(self, request):
         sorted_posts = BlogPost.objects.order_by('-id')
-        latest_posts = sorted_posts[:5]
+        latest_posts = sorted_posts[:4]
         print(latest_posts)
         if request.user.is_authenticated:
             login_status = True
@@ -49,7 +49,7 @@ class ComposeBlogPostView(LoginRequiredMixin, FormView):
     def get_success_url(self):
         '''After submitting a post, the user is redirected to his own blog site'''
         return reverse('user_posts',
-                       kwargs={'slug': self.request.user.username})
+                       kwargs={'author': self.request.user.username})
 
     def form_valid(self, form):
         '''Add logged in user instance to form'''
@@ -65,8 +65,9 @@ class UserPostsView(ListView):
 
     def get_queryset(self, *args, **kwargs):
         '''Query the dataset to fetch the posts of a specific user
-        Ordered by date, showing the latest post first'''
+        ordered by date, showing the latest post first'''
         author = User.objects.get(username=self.kwargs["author"])
+        print(author)
         query = super(UserPostsView, self).get_queryset(*args, **kwargs)
         user_posts = query.filter(author=author).order_by('-date')
         return user_posts

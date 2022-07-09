@@ -13,3 +13,39 @@ body {
 form {
     width: 100%;
 }
+
+.card-width-index {
+    width: 300px;
+}
+
+.cards {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.card-latest-posts {
+    width: 300px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+a {
+    text-decoration: None;
+    color: black;
+}
+
+a:hover {
+    color: darkred;
+}
+
+section h1 {
+    text-align:center;
+}

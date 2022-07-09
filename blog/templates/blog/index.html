@@ -1,15 +1,30 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h1>It works. You can see the latest posts here.</h1>
 
-    <section id="latest-posts">
-        <ul>
-            <h2>Latest Posts</h2>
+    <section id="latest_posts"> 
+        <h1>Latest Posts</h1>
+        <div class="container-fluid cards">
             {% for post in latest_posts %}
-                <p>{{ post.title }}</p>
-                {% include 'blog/includes/post.html' %}
+            <a href="{% url 'detailed_post' author=post.author slug=post.slug %}">
+                <div class="card card-latest-posts">
+                    <img src="{{ post.image.url }}" width="300" class="card-img-top">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ post.title }}</h4>
+                        <h6>Author: {{ post.author|title }}</h6>
+                        <p class="card-text">{{ post.blog_text|truncatechars:100 }}</p>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
+    </section>
+        <hr>
+        {% comment %} <ul>
+                <h2>Latest Posts</h2>
+                {% for post in latest_posts %}
+                    <p>{{ post.title }}</p>
+                    {% include 'blog/includes/post.html' %}
+                {% endfor %}
+        </ul>  {% endcomment %}
     </section>
 {% endblock %}
