@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
+    'crispy_bootstrap5',
     'users',
     'blog',
     'django.contrib.admin',
@@ -133,3 +135,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = "/user-media/"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
