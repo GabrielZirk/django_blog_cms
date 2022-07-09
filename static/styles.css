@@ -7,7 +7,7 @@
 }
 
 body { 
-    padding-top: 80px; 
+    padding-top: 50px; 
 }
 
 form {
@@ -48,4 +48,17 @@ a:hover {
 
 section h1 {
     text-align:center;
+    margin: 2rem 0;
+}
+
+.header-headline {
+    padding-left: 20%;
+}
+
+.detailed-view-img {
+    width: 100%;
+}
+
+.full-blog-text {
+    margin-top: 2rem;
 }

@@ -2,10 +2,13 @@
 {% load static %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
-    <h1>{{ detailed_post.title }}</h1>
-    <p>{{ detailed_post.date }}</p>
-    <p>
-        {{ detailed_post.author }}
-        <img src="{{ detailed_post.image.url }}" alt="{{ detailed_post.title }}">
-        <p>{{ detailed_post.blog_text }}</p>
+    <section id="detailed-view">
+        <div class="container">
+            <h1>{{ detailed_post.title }}</h1>
+            <p>Date: {{ detailed_post.date }} | Author: {{ detailed_post.author }}</p>
+            
+            <img width="100%" src="{{ detailed_post.image.url }}" alt="{{ detailed_post.title }}">
+            <p class="full-blog-text">{{ detailed_post.blog_text }}</p>
+        </div>
+        </section>
     {% endblock %}
