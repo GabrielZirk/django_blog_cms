@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
-
-
-{% block title %}Usernames's Blog{% endblock %}
-
-
+{% block title %}{{ user.username }}'s Blog{% endblock %}
 {% block content %}
-
-<ul>
-{% for post in user_posts %}
-{% include 'blog/includes/post.html' %}
-{% endfor %}
-</ul>
-
-{% endblock %}
+    <section id="user-posts">
+        <h1>Posts</h1>
+        <div class="container-fluid cards">
+            {% for post in user_posts %}
+                <a href="{% url 'detailed_post' author=post.author slug=post.slug %}">
+                    <div class="card card-latest-posts">
+                        <img src="{{ post.image.url }}" width="300" class="card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ post.title }}</h4>
+                            <h6>Author: {{ post.author|title }}</h6>
+                            <p class="card-text">{{ post.blog_text|truncatechars:100 }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endblock %}
