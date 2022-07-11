@@ -4,7 +4,7 @@
 {% block title %}Compose Blog Entry{% endblock %}
 {% block content %}
     <section id="compose-post">
-        <h1>Share Your Thoughts {{ user.username }}</h1>
+        <h1>Share Your Thoughts {{ user.username|title }}</h1>
         <div class="contrainer">
             <div class="row justify-content-center">
                 <div class="col-md-6">

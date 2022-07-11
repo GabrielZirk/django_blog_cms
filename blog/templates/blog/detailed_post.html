@@ -4,11 +4,14 @@
 {% block content %}
     <section id="detailed-view">
         <div class="container-sm">
+            
             <h1>{{ detailed_post.title }}</h1>
-            <p>Date: {{ detailed_post.date }} | Author: {{ detailed_post.author|title }}</p>
+            <p>Date: {{ detailed_post.date }} | Author: {{ detailed_post.author|title }}
             {% if user.get_username == detailed_post.author.username %}
-                <a href="/edit" type="button" class="btn btn-outline-dark">Edit</a>
+                <a href="{% url 'update_post' slug=detailed_post.slug %}" type="button" class="btn btn-outline-dark">Edit</a>
+            </p>
             {% endif %}
+            <hr>
             <img width="100%"
                  src="{{ detailed_post.image.url }}"
                  alt="{{ detailed_post.title }}">
