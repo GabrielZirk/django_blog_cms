@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.views import View
 from .forms import BlogPostForm
 from .models import BlogPost
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 # Create your views here.
 
@@ -67,7 +68,6 @@ class UserPostsView(ListView):
         '''Query the dataset to fetch the posts of a specific user
         ordered by date, showing the latest post first'''
         author = User.objects.get(username=self.kwargs["author"])
-        print(author)
         query = super(UserPostsView, self).get_queryset(*args, **kwargs)
         user_posts = query.filter(author=author).order_by('-date')
         return user_posts
@@ -78,6 +78,18 @@ class DetailedPostView(LoginRequiredMixin, DetailView):
     template_name = "blog/detailed_post.html"
     
     def get_object(self, *args, **kwargs):
-        print(BlogPost.objects.get(slug=self.kwargs["slug"]))
         return BlogPost.objects.get(slug=self.kwargs["slug"])
-        
+            
+
+class UpdatePostView(UserPassesTestMixin, UpdateView):
+    model = BlogPost
+    fields = '__all__'
+    template_name = 'blog/compose_post.html'
+    
+    def test_func(self):
+        '''Checks permissons to edit the post. 
+        Only the author is allowed to update.'''
+        return self.get_object().author.username == self.request.user.username
+    
+    def get_success_url(self):
+        return reverse('user_posts', kwargs={'author': self.request.user.username})
