@@ -41,7 +41,6 @@
                                 <li class="nav-item mx-0 mx-lg-1">
                                     <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'logout' %}">Logout {{ user.username }}</a>
                                 </li>
-
                             {% else %}
                                 <li class="nav-item mx-0 mx-lg-1">
                                     <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'login' %}">Login</a>
@@ -62,15 +61,23 @@
                     <div class="d-flex justify-content-right align-items-center h-100">
                         <div class="text-black">
                             <h1 class="mb-3 header-headline">... Share Your Thoughts</h1>
-
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- Background image -->
+            {% block content %}{% endblock %}
         </div>
-        <!-- Background image -->
-        {% block content %}{% endblock %}
     </div>
-</div>
 </body>
+<footer>
+    <div class="container-fluid text-center">
+        <h4>
+            This is a
+            <img src="{% static 'django-logo.png' %}" alt="Django Logo" width="150">
+            project.
+        </h4>
+    </div>
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </html>
