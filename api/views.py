@@ -18,5 +18,8 @@ class BlogPostApiView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
+        '''
+        Auto-fills author field
+        '''
         serializer.save(author=self.request.user)
     

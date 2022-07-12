@@ -97,8 +97,10 @@ class UpdatePostView(UserPassesTestMixin, UpdateView):
     template_name = 'blog/compose_post.html'
     
     def test_func(self):
-        '''Checks permissons to edit the post. 
-        Only the author is allowed to update.'''
+        '''
+        Checks permissons to edit the post. 
+        Only the author is allowed to update.
+        '''
         return self.get_object().author.username == self.request.user.username
     
     def get_success_url(self):
