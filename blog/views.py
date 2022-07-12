@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from .forms import BlogPostForm
 from .models import BlogPost
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic.edit import FormView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -104,4 +104,10 @@ class UpdatePostView(UserPassesTestMixin, UpdateView):
     def get_success_url(self):
         return reverse('user_posts', kwargs={'author': self.request.user.username})
     
+    
+class DeletePostView(DeleteView):
+    model = BlogPost
+    
+    def get_success_url(self):
+        return reverse('user_posts', kwargs={'author': self.request.user.username})
     
