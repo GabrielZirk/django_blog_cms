@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from .forms import BlogPostForm
 from .models import BlogPost
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic.edit import FormView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -10,12 +10,13 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth.mixins import UserPassesTestMixin
 
+
 # Create your views here.
 
 
 class IndexView(View):
     '''Manages the requests on the landing page
-    Only the 5 latest posts shall be seen'''
+    Only the 4 latest posts shall be seen'''
 
     def get(self, request):
         sorted_posts = BlogPost.objects.order_by('-id')
@@ -60,6 +61,9 @@ class ComposeBlogPostView(LoginRequiredMixin, FormView):
 
 
 class UserPostsView(ListView):
+    '''
+    Shows all blog posts a user has made.
+    '''
     model = BlogPost
     context_object_name = 'user_posts'
     template_name = "blog/user_posts.html"
@@ -73,6 +77,9 @@ class UserPostsView(ListView):
         return user_posts
 
 class DetailedPostView(LoginRequiredMixin, DetailView):
+    '''
+    Detailed view of a blog post. Shows all fields
+    '''
     model = BlogPost
     context_object_name = 'detailed_post'
     template_name = "blog/detailed_post.html"
@@ -82,6 +89,9 @@ class DetailedPostView(LoginRequiredMixin, DetailView):
             
 
 class UpdatePostView(UserPassesTestMixin, UpdateView):
+    '''
+    Update blog posts. User can only update their own posts.
+    '''
     model = BlogPost
     fields = '__all__'
     template_name = 'blog/compose_post.html'
@@ -93,3 +103,11 @@ class UpdatePostView(UserPassesTestMixin, UpdateView):
     
     def get_success_url(self):
         return reverse('user_posts', kwargs={'author': self.request.user.username})
+    
+    
+class DeletePostView(DeleteView):
+    model = BlogPost
+    
+    def get_success_url(self):
+        return reverse('user_posts', kwargs={'author': self.request.user.username})
+    
